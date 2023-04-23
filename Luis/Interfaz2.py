@@ -83,8 +83,6 @@ def floodfill():
     #         tt.color("blue")
     return
 
-def limpiar_lienzo():
-    tt.clear()
 
 def escalado_cuadrado():
     x1 = 0
@@ -128,6 +126,9 @@ def escalado_cuadrado():
     #     tt.forward(200)
     #     tt.right(90)
 
+def limpiar_lienzo():
+    tt.clear()
+
 def minimizar():
     ventana.iconify()
 
@@ -139,15 +140,15 @@ def maximizar():
 
 def cambia_color(event, boton):
     if boton==boton_minimizar or boton==boton_maximizar:
-        boton.configure(background="#a0a0a0")
+        boton.configure(background="#AA336A")
     else:
         boton.configure(background="#c00000")
 
 def restaura_color(event, boton):
     if boton==boton_minimizar or boton==boton_maximizar:
-        boton.configure(background="#666666")
+        boton.configure(background="pink")
     else:
-        boton.configure(background="#666666")
+        boton.configure(background="pink")
 
 # x1 = 1
 # y1 = 1
@@ -159,7 +160,7 @@ ventana = tk.Tk()
 ventana.geometry("600x800")
 # ventana.overrideredirect(True)
 ventana.configure(border=0)
-ventana.config(bg="#666666")
+ventana.config(bg="pink")
 ventana.title("Proyecto 1- Claudia & Luis 1SF141")
 
 
@@ -170,13 +171,13 @@ ventana.rowconfigure(1, weight=1)
 ventana.rowconfigure(2, weight=0)
 ventana.rowconfigure(3, weight=0)
 
-frame_fila0 = tk.Frame(ventana, bg="#808080")
+frame_fila0 = tk.Frame(ventana, bg="#AA336A")
 frame_fila0.grid(row=0, column=0, columnspan=4, sticky="nsew")
 
 # botones de la ventana
 boton_rectangulo = tk.Button(ventana, text="Rectángulo", command=dibujar_rectangulo)
 boton_cuadrado = tk.Button(ventana, text="Cuadrado", command=dibujar_cuadrado)
-boton_circulo = tk.Button(ventana, text="Floodfill", command=floodfill)
+boton_circulo = tk.Button(ventana, text="Rellenar", command=floodfill)
 boton_limpiar = tk.Button(ventana, text="Limpiar", command=limpiar_lienzo)
 boton_animacion = tk.Button(ventana, text="Escalado", command=escalado_cuadrado)
 
@@ -188,19 +189,19 @@ boton_limpiar.grid(row=3, column=0, padx=10, pady=10)
 boton_animacion.grid(row=3, column=1, padx=10, pady=10)
 
 # Botones personalizados
-boton_minimizar = tk.Button(ventana, text='-', command=minimizar, foreground="white", background="#666666", height=2, width=4)
+boton_minimizar = tk.Button(ventana, text='-', command=minimizar, foreground="white", background="pink", height=2, width=4)
 boton_minimizar.configure(highlightthickness=0, bd=0)
 boton_minimizar.bind("<Enter>", lambda event: cambia_color(event, boton_minimizar))
 boton_minimizar.bind("<Leave>", lambda event: restaura_color(event, boton_minimizar))
 boton_minimizar.grid(row=0, column=2, sticky="NE", padx=0, pady=0)
 
-boton_maximizar = tk.Button(ventana, text='[]', command=maximizar, foreground="white", background="#666666", height=2, width=4)
+boton_maximizar = tk.Button(ventana, text='[]', command=maximizar, foreground="white", background="pink", height=2, width=4)
 boton_maximizar.configure(highlightthickness=0, bd=0)
 boton_maximizar.bind("<Enter>", lambda event: cambia_color(event, boton_maximizar))
 boton_maximizar.bind("<Leave>", lambda event: restaura_color(event, boton_maximizar))
 boton_maximizar.grid(row=0, column=3, sticky="NE", padx=0, pady=0)
 
-boton_salir = tk.Button(ventana, text="X", command=ventana.quit, foreground="white", background="#666666", height=2, width=4)
+boton_salir = tk.Button(ventana, text="X", command=ventana.quit, foreground="white", background="pink", height=2, width=4)
 boton_salir.configure(highlightthickness=0, bd=0)
 boton_salir.bind("<Enter>", lambda event: cambia_color(event, boton_salir))
 boton_salir.bind("<Leave>", lambda event: restaura_color(event, boton_salir))

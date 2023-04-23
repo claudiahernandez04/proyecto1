@@ -4,23 +4,75 @@ import tkinter as tk
 from turtle import width
 from PIL import ImageTk, Image
 from matplotlib import image
+import turtle
 
+#PROGRAMACIÓN
+
+#CLASES
 def close_window():
     window.destroy()
 
-def draw_rectangle():
-    canvas.create_rectangle(0, 0, 150, 150, fill = "#f95738", outline = "#f95738")
-
-def draw_triangle():
-    canvas.create_polygon(0, 0, 150, 0, 75, 150, fill = "#f95738", outline = "#f95738")
 
 def draw_rectangle():
+    t=turtle.Turtle()
+    
+    turtle.color('blue', 'black')
+    turtle.begin_fill()
+
+    draw = turtle.RawTurtle(canvas)
+    
+    x1 = 1
+    y1 = 1
+    x2 = 500
+    y2 = 500
+    dx = x2 - x1
+    dy = y2 - y1
+    pasos=0
+    incrementoX=0
+    incrementoY=0
+    
+    if(abs(dx)>abs(dy)):
+        pasos=abs(dx)
+    else:
+        pasos=abs(dy)  
+
+    incrementoX=dx/pasos
+    incrementoY=dy/pasos
+    
+    x=x1
+    y=y1
+    
+    for i in range(300):
+        t.goto(x,y)
+    if i<=99:
+        x=x+incrementoX
+        y=y
+    elif i<=149:
+        x=x
+        y=y+incrementoY
+    elif i<=249:
+        x=x-incrementoX
+        y=y
+    elif i<=299:
+        x=x
+        y=y-incrementoY
+    
+    turtle.end_fill()
+    turtle.hideturtle()
+    turtle.mainloop()
+
+
+
+def draw_square():
     canvas.create_rectangle(0, 0, 150, 150, fill = "#f95738", outline = "#f95738")
 
-def draw_triangle():
+def rotate():
+    canvas.create_rectangle(0, 0, 150, 150, fill = "#f95738", outline = "#f95738")
+
+def fulfill():
     canvas.create_polygon(0, 0, 150, 0, 75, 150, fill = "#f95738", outline = "#f95738")
 
-
+#INTERFAZ GUI
 
 #declarar ventana
 window = tk.Tk()
@@ -42,8 +94,8 @@ canvas.place(x = 90, y = 100)
 
 #buttons
 button1 = tk.Button(window, bg='#f4d35e', text = "X", width=  3, height=  1, command= close_window)
-button2 = tk.Button(window, bg='#f95738', text = "TRIÁNGULO", width=  15, height=  3, command= draw_triangle)
-button3 = tk.Button(window, bg='#f95738', text = "CUADRADO", width=  15, height=  3, command= draw_rectangle)
+button2 = tk.Button(window, bg='#f95738', text = "TRIÁNGULO", width=  15, height=  3, command= draw_rectangle())
+button3 = tk.Button(window, bg='#f95738', text = "CUADRADO", width=  15, height=  3, command= draw_square)
 button4 = tk.Button(window, bg='#0d3b66', fg= '#faf0ca' ,text = "RELLENAR", width=  15, height=  3)
 button5 = tk.Button(window, bg='#0d3b66',  fg= '#faf0ca', text = "ROTAR", width=  15, height=  3)
 button6 = tk.Button(window, bg='#f4d35e', text = "REPETIR", width=  42, height=  2)
@@ -62,3 +114,7 @@ if (button2 == True):
     draw_triangle()
 elif (button3 == True):
     draw_rectangle() """ #esto no funciona AÚN
+
+
+
+
