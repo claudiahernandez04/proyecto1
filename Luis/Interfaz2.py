@@ -1,6 +1,5 @@
 import tkinter as tk
 import turtle as tt
-# from tkinter import ttk
 
 def dibujar_rectangulo():
     x1 = 0
@@ -18,10 +17,8 @@ def dibujar_rectangulo():
         pasos=abs(dy)  
     incrementoX=dx/pasos
     incrementoY=dy/pasos
-
     x=x1
     y=y1
-
     for i in range(300):
         tt.goto(x,y)
         if i<=99:
@@ -53,10 +50,8 @@ def dibujar_cuadrado():
         pasos=abs(dy)  
     incrementoX=dx/pasos
     incrementoY=dy/pasos
-
     x=x1
     y=y1
-
     for i in range(400):
         tt.goto(x,y)
         if i<=99:
@@ -72,23 +67,69 @@ def dibujar_cuadrado():
             x=x
             y=y-incrementoY
 
-def floodfill():
-    # lienzo = [[0 for i in range(100)] for j in range(100)]
-    # tt.hideturtle()
-    # for x in range(100):
-    #     for y in range(100):
-    #         # tt.color("blue")
-    #         # tt.speed(0)
-    #         tt.goto(x+1,y+1)
-    #         tt.color("blue")
-    return
+def dibujar_cuadrado_floodfill():
+    x1 = 0
+    y1 = 0
+    x2 = 200
+    y2 = 200
+    canvas = [[0 for i in range(200)] for j in range(200)]
+    dx = x2 - x1
+    dy = y2 - y1
+    pasos=0
+    incrementoX=0
+    incrementoY=0
+    if(abs(dx)>abs(dy)):
+        pasos=abs(dx)
+    else:
+        pasos=abs(dy)  
+    incrementoX = dx / pasos
+    incrementoY = dy / pasos
+    x=x1
+    y=y1
+    for i in range(200):
+        tt.color("black")
+        tt.goto(x,y)
+        canvas[x][y]="black"
+        if i<50:
+            x=round(x+incrementoX)
+            y=y
+        elif i<100:
+            x=x
+            y=round(y+incrementoY)
+        elif i<150:
+            x=round(x-incrementoX)
+            y=y
+        elif i<200:
+            x=x
+            y=round(y-incrementoY)
+    floodfill4(x1, y1, "black", "blue", canvas)
+    colorear(canvas)
 
+def floodfill4(x, y, old_color, new_color, canvas):
+    if x < 0 or x >= 200 or y < 0 or y >= 200 or canvas[x][y] != old_color:
+        return
+    else:
+        canvas[x][y] = new_color
+        floodfill4(x, y+1, old_color, new_color, canvas)
+        floodfill4(x, y-1, old_color, new_color, canvas)
+        floodfill4(x+1, y, old_color, new_color, canvas)
+        floodfill4(x-1, y, old_color, new_color, canvas)
+
+def colorear(canvas):
+    tt.hideturtle()
+    for x in range(50):
+        for y in range(50):
+            if canvas[x][y] == "black":
+                tt.color("black")
+            elif canvas[x][y] == "blue":
+                tt.color("blue")
+            tt.goto(x,y)
 
 def escalado_cuadrado():
     x1 = 0
     y1 = 0
-    x2 = 800
-    y2 = -800
+    x2 = 400*2
+    y2 = -400*2
     dx = x2 - x1
     dy = y2 - y1
     pasos=0
@@ -100,7 +141,6 @@ def escalado_cuadrado():
         pasos=abs(dy)  
     incrementoX=dx/pasos
     incrementoY=dy/pasos
-
     x=x1
     y=y1
 
@@ -118,13 +158,6 @@ def escalado_cuadrado():
         elif i<800:
             x=x
             y=y-incrementoY
-    # tt.penup()
-    # tt.goto(-100, -100)
-    # tt.pendown()
-    # tt.speed(1)
-    # for i in range(4):
-    #     tt.forward(200)
-    #     tt.right(90)
 
 def limpiar_lienzo():
     tt.clear()
@@ -150,10 +183,6 @@ def restaura_color(event, boton):
     else:
         boton.configure(background="pink")
 
-# x1 = 1
-# y1 = 1
-# x2 = 400
-# y2 = 400
 
 # Creamos la ventana principal
 ventana = tk.Tk()
@@ -162,7 +191,6 @@ ventana.geometry("600x800")
 ventana.configure(border=0)
 ventana.config(bg="pink")
 ventana.title("Proyecto 1- Claudia & Luis 1SF141")
-
 
 # Configuramos la estructura de cuadrícula
 ventana.columnconfigure(0, weight=1)
@@ -177,7 +205,7 @@ frame_fila0.grid(row=0, column=0, columnspan=4, sticky="nsew")
 # botones de la ventana
 boton_rectangulo = tk.Button(ventana, text="Rectángulo", command=dibujar_rectangulo)
 boton_cuadrado = tk.Button(ventana, text="Cuadrado", command=dibujar_cuadrado)
-boton_circulo = tk.Button(ventana, text="Rellenar", command=floodfill)
+boton_circulo = tk.Button(ventana, text="Rellenar", command=dibujar_cuadrado_floodfill)
 boton_limpiar = tk.Button(ventana, text="Limpiar", command=limpiar_lienzo)
 boton_animacion = tk.Button(ventana, text="Escalado", command=escalado_cuadrado)
 
